@@ -1,0 +1,117 @@
+import { createReducer, createActions } from 'reduxsauce'
+import Immutable from 'seamless-immutable'
+import {SHOPIFY_URL, SHOPIFY_STOREFRONT_ACCESS_TOKEN} from '../config/application'
+import { theme } from '../constants/Theme'
+
+const { Types, Creators } = createActions({
+    setPrimaryColor: ['color'],
+    setShopifyStore: ['baseUrl', 'access_token']
+  })
+
+export const ConfigTypes = Types
+export default Creators
+
+const INITIAL_STATE = Immutable({
+    baseURL: SHOPIFY_URL,
+    shopifyStoreAccessToken: SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+    primaryColor: theme.primaryColor,
+    headerBackIconColor: theme.primaryColor,
+    headerBackgroundColor: 'white',
+    activeBottomIconColor: theme.primaryColor,
+    inactiveBottomIconColor: theme.inactiveBottomIconColor,
+    generalIconColor: theme.primaryColor,
+    bottomTabBarColor: theme.bottomTabBarColor,
+    buttonBackgroundColor: theme.primaryColor,
+    buttonTextColor: theme.buttonTextColor,
+    modalHeaderColor: theme.primaryColor,
+    modalHeaderContentColor: theme.buttonTextColor,
+    backgroundColor: theme.listBackground,
+    colorSelectionList: ['#C0392B', '#E74C3C', '#9B59B6', '#8E44AD', '#2980B9', '#694b37', '#303F9F', '#7C4DFF', '#FF5252', '#5D4037', '#607D8B','#FF5722','#0097A7','#03A9F4', '#000000']
+})
+
+const setPrimaryColor = (state, action) => {
+    const color = action.color
+    return state.merge({
+        primaryColor: color,
+        headerBackIconColor: color,
+        activeBottomIconColor: color,
+        buttonBackgroundColor: color,
+        modalHeaderColor: color,
+    })
+}
+const setShopifyStore = (state, action) => {
+    return state.merge({
+        baseURL: action.baseUrl,
+        shopifyStoreAccessToken: action.access_token,
+    })
+}
+
+export const config = createReducer(INITIAL_STATE, {
+    [Types.SET_PRIMARY_COLOR]: setPrimaryColor,
+    [Types.SET_SHOPIFY_STORE]: setShopifyStore,
+})
+
+const getReducer = (rootState) => {
+    return rootState.config
+}
+export const getPrimaryColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.primaryColor
+}
+export const getBottomTabBarColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.bottomTabBarColor
+}
+export const getActiveBottomIconColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.activeBottomIconColor
+}
+export const getInactiveBottomIconColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.inactiveBottomIconColor
+}
+export const getButtonBackgroundColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.buttonBackgroundColor
+}
+export const getButtonTextColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.buttonTextColor
+}
+export const getHeaderBackIconColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.headerBackIconColor
+}
+export const getGeneralIconColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.generalIconColor
+}
+export const getModalHeaderColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.modalHeaderColor
+}
+export const getModalHeaderContentColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.modalHeaderContentColor
+}
+export const getHeaderBackgroundColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.headerBackgroundColor
+}
+export const getColorSelectionList = (rootState) => {
+    state = getReducer(rootState)
+    return state.colorSelectionList
+}
+const getBackgroundColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.backgroundColor
+}
+export const getConfig = (rootState) => {
+    state = getReducer(rootState)
+    return {
+        shopifyStoreAccessToken: state.shopifyStoreAccessToken,
+        baseUrl: state.baseURL
+    }
+}
+
+
